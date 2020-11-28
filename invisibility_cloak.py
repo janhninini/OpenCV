@@ -10,17 +10,24 @@ while cap.isOpened():
     if ret:
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 #        red = np.uint8([[[0,0,255]]])
-#        hsv_red = cv2.cvtColor(red, cv2.COLOR_BGR2HSV)
+#        hsv_red = cv2.cvtColor(red, cv2.C OLOR_BGR2HSV)
 #        print(hsv_red)
-#       cv2.imshow("hsv_red", hsv_red)
+#        cv2.imshow("hsv_red", hsv_red)
 
-        l_red = np.array([0,100,100])
-        u_red = np.array([10,255,255])
+        l_red = np.array([0, 100, 100])
+        u_red = np.array([10, 255, 255])
 
-        mp = cv2.inrange(hsv, l_red, u_red)
+        mp1 = cv2.inRange(hsv, l_red, u_red)
 
-        p1 = cv2.bitwise_and(back, back, mask = mp)
+        # cv2.imshow("red", mp)
 
+        p1 = cv2.bitwise_and(image, image, mask=mp1)
+        # cv2.imshow("p1", p1)
+        mp2 = cv2.bitwise_not(mp1)
+
+        p2 = cv2.bitwise_and(frame, frame, mask = mp2)
+
+        cv2.imshow("cloak", p1+p2)
 
         if cv2.waitKey(5) == ord('q'):
             break

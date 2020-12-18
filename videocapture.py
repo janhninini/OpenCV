@@ -1,10 +1,16 @@
 import cv2
+cap=cv2.VideoCapture(0)
+count=0
+while True:
+    ret,frame=cap.read()
+    if ret:
+        cv2.imshow("window",frame)
 
-vc = cv2.VideoCapture(0)
-while(True):
-    ret, frame = vc.read()
-    cv2.imshow("You're LIVE", frame)
-    if cv2.waitKey(1) == 13:
+    key=cv2.waitKey(1)
+    if ord('q')==0xff & key:
         break
-vc.release()
+    if ord('c') == 0xff & key:
+        cv2.imwrite("{}.png".format(count),frame)
+        count+=1
+cap=cv2.release()
 cv2.destroyAllWindows()
